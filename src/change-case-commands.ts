@@ -25,22 +25,30 @@ export const COMMAND_LABELS = {
 
 const COMMAND_DEFINITIONS = [
     { label: COMMAND_LABELS.camel, description: 'Convert to a string with the separators denoted by having the next letter capitalised', func: changeCase.camel },
-    { label: COMMAND_LABELS.constant, description: 'Convert to an upper case, underscore separated string', func: changeCase.constant },
-    { label: COMMAND_LABELS.dot, description: 'Convert to a lower case, period separated string', func: changeCase.dot },
-    { label: COMMAND_LABELS.kebab, description: 'Convert to a lower case, dash separated string (alias for param case)', func: changeCase.param },
-    { label: COMMAND_LABELS.lower, description: 'Convert to a string in lower case', func: changeCase.lower },
-    { label: COMMAND_LABELS.lowerFirst, description: 'Convert to a string with the first character lower cased', func: changeCase.lcFirst },
-    { label: COMMAND_LABELS.no, description: 'Convert the string without any casing (lower case, space separated)', func: changeCase.no },
-    { label: COMMAND_LABELS.param, description: 'Convert to a lower case, dash separated string', func: changeCase.param },
     { label: COMMAND_LABELS.pascal, description: 'Convert to a string denoted in the same fashion as camelCase, but with the first letter also capitalised', func: changeCase.pascal },
-    { label: COMMAND_LABELS.path, description: 'Convert to a lower case, slash separated string', func: changeCase.path },
-    { label: COMMAND_LABELS.sentence, description: 'Convert to a lower case, space separated string', func: changeCase.sentence },
+    { label: COMMAND_LABELS.kebab, description: 'Convert to a lower case, dash separated string (alias for param case)', func: changeCase.param },
     { label: COMMAND_LABELS.snake, description: 'Convert to a lower case, underscore separated string', func: changeCase.snake },
-    { label: COMMAND_LABELS.swap, description: 'Convert to a string with every character case reversed', func: changeCase.swap },
-    { label: COMMAND_LABELS.title, description: 'Convert to a space separated string with the first character of every word upper cased', func: changeCase.title },
+    { label: COMMAND_LABELS.lower, description: 'Convert to a string in lower case', func: changeCase.lower },
     { label: COMMAND_LABELS.upper, description: 'Convert to a string in upper case', func: changeCase.upper },
-    { label: COMMAND_LABELS.upperFirst, description: 'Convert to a string with the first character upper cased', func: changeCase.ucFirst }
-];
+
+    { label: COMMAND_LABELS.no, description: 'Convert the string without any casing (lower case, space separated)', func: changeCase.no },
+    { label: COMMAND_LABELS.path, description: 'Convert to a lower case, slash separated string', func: changeCase.path },
+    { label: COMMAND_LABELS.dot, description: 'Convert to a lower case, period separated string', func: changeCase.dot },
+    { label: COMMAND_LABELS.lowerFirst, description: 'Convert to a string with the first character lower cased', func: changeCase.lcFirst },
+    { label: COMMAND_LABELS.upperFirst, description: 'Convert to a string with the first character upper cased', func: changeCase.ucFirst },
+    { label: COMMAND_LABELS.param, description: 'Convert to a lower case, dash separated string', func: changeCase.param },
+    { label: COMMAND_LABELS.sentence, description: 'Convert to a lower case, space separated string', func: changeCase.sentence },
+    { label: COMMAND_LABELS.swap, description: 'Convert to a string with every character case reversed', func: changeCase.swap },
+
+    { label: COMMAND_LABELS.title, description: 'Convert to a space separated string with the first character of every word upper cased', func: changeCase.title },
+    { label: COMMAND_LABELS.constant, description: 'Convert to an upper case, underscore separated string', func: changeCase.constant },
+]
+
+function getCommandDefinitions() {
+    const config = vscode.workspace.getConfiguration('changeCase')
+    return COMMAND_DEFINITIONS.filter((item) => config.get<boolean>(item?.label, false))
+}
+
 
 export function changeCaseCommands() {
     const firstSelectedText = getSelectedTextIfOnlyOneSelection();
@@ -48,17 +56,17 @@ export function changeCaseCommands() {
 
     // if there's only one selection, show a preview of what it will look like after conversion in the QuickPickOptions,
     // otherwise use the description used in COMMAND_DEFINITIONS
-    const items: vscode.QuickPickItem[] = COMMAND_DEFINITIONS.map(c => ({
-        label: c.label,
+    const items: vscode.QuickPickItem[] = getCommandDefinitions().map(c => ({
+        label: c?.label,
         description: firstSelectedText ? `Convert to ${c.func(firstSelectedText)}` : c.description
     }));
 
     vscode.window.showQuickPick(items)
-        .then(command => runCommand(command.label));
+        .then(command => runCommand(command?.label));
 }
 
 export function runCommand(commandLabel: string) {
-    const commandDefinition = COMMAND_DEFINITIONS.filter(c => c.label === commandLabel)[0];
+    const commandDefinition = COMMAND_DEFINITIONS.filter(c => c?.label === commandLabel)[0];
     if (!commandDefinition) return;
 
     const editor = vscode.window.activeTextEditor;
