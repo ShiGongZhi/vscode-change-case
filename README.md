@@ -1,3 +1,17 @@
+# Note
+This repository is a fork of the original extension [wmaurer/change-case](https://marketplace.visualstudio.com/items?itemName=wmaurer.change-case&ssr=false#overview)
+
+
+Unfortunately, its author doesn't seems to have time to maintain it anymore, so I made this fork to fix bugs
+
+and let the change case configurable according to your needs
+
+and add shortcut key
+
+and to merge the work from its amazing contributors.
+
+Feel free to submit issues or pull requests, and thanks @wmaurer for its work !
+
 # Change Case Extension for Visual Studio Code
 
 A wrapper around [node-change-case](https://github.com/blakeembrey/node-change-case) for Visual Studio Code.
@@ -13,33 +27,49 @@ If only one word is selected, the `extension.changeCase.commands` command gives 
 
 *Note:* Please read the [documentation](https://code.visualstudio.com/Docs/editor/editingevolved) on how to use multiple cursors in Visual Studio Code.
 
-## Install
-
-Launch VS Code Quick Open (Ctrl/Cmd+P), paste the following command, and press enter.
-```
-ext install change-case
-```
-
 ## Commands
 
-* `extension.changeCase.commands`: List all Change Case commands, with preview if only one word is selected
-* `extension.changeCase.camel`: Change Case 'camel': Convert to a string with the separators denoted by having the next letter capitalised
-* `extension.changeCase.constant`: Change Case 'constant': Convert to an upper case, underscore separated string
-* `extension.changeCase.dot`: Change Case 'dot': Convert to a lower case, period separated string
-* `extension.changeCase.kebab`: Change Case 'kebab': Convert to a lower case, dash separated string (alias for param case)
-* `extension.changeCase.lower`: Change Case 'lower': Convert to a string in lower case
-* `extension.changeCase.lowerFirst`: Change Case 'lowerFirst': Convert to a string with the first character lower cased
-* `extension.changeCase.no`: Convert the string without any casing (lower case, space separated)
-* `extension.changeCase.param`: Change Case 'param': Convert to a lower case, dash separated string
+* `extension.changeCase.commands`: List all Change Case commands, with preview if only one word is selected(shortcut key: alt+t)
+* `extension.changeCase.camel`: Change Case 'camel': Convert to a string with the separators denoted by having the next letter capitalised(shortcut key: shift+alt+t)
 * `extension.changeCase.pascal`: Change Case 'pascal': Convert to a string denoted in the same fashion as camelCase, but with the first letter also capitalised
-* `extension.changeCase.path`: Change Case 'path': Convert to a lower case, slash separated string
-* `extension.changeCase.sentence`: Change Case 'sentence': Convert to a lower case, space separated string
+* `extension.changeCase.kebab`: Change Case 'kebab': Convert to a lower case, dash separated string (alias for param case)
 * `extension.changeCase.snake`: Change Case 'snake': Convert to a lower case, underscore separated string
-* `extension.changeCase.swap`: Change Case 'swap': Convert to a string with every character case reversed
-* `extension.changeCase.title`: Change Case 'title': Convert to a space separated string with the first character of every word upper cased
+* `extension.changeCase.lower`: Change Case 'lower': Convert to a string in lower case
 * `extension.changeCase.upper`: Change Case 'upper': Convert to a string in upper case
+
+* `extension.changeCase.no`: Convert the string without any casing (lower case, space separated)
+* `extension.changeCase.path`: Change Case 'path': Convert to a lower case, slash separated string
+* `extension.changeCase.dot`: Change Case 'dot': Convert to a lower case, period separated string
+* `extension.changeCase.lowerFirst`: Change Case 'lowerFirst': Convert to a string with the first character lower cased
 * `extension.changeCase.upperFirst`: Change Case 'upperFirst': Convert to a string with the first character upper cased
+* `extension.changeCase.param`: Change Case 'param': Convert to a lower case, dash separated string
+* `extension.changeCase.sentence`: Change Case 'sentence': Convert to a lower case, space separated string
+* `extension.changeCase.swap`: Change Case 'swap': Convert to a string with every character case reversed
 
-## Support
+* `extension.changeCase.title`: Change Case 'title': Convert to a space separated string with the first character of every word upper cased
+* `extension.changeCase.constant`: Change Case 'constant': Convert to an upper case, underscore separated string
 
-[Create an issue](https://github.com/wmaurer/vscode-change-case/issues), or ping [@waynemaurer](https://twitter.com/waynemaurer) on Twitter.
+## Settings
+
+* `changeCase.includeDotInCurrentWord`: When selecting current word, allow dots in current word (false by default)
+
+> The following only configures whether it appears in the `extension.changeCase.commands` command list and does not affect the use of the command.
+
+* `changeCase.camel`: true by default
+* `changeCase.pascal`: true by default
+* `changeCase.kebab`: true by default
+* `changeCase.snake`: true by default
+* `changeCase.lower`: true by default
+* `changeCase.upper`: true by default
+
+* `changeCase.no`: false by default
+* `changeCase.path`: false by default
+* `changeCase.dot`: false by default
+* `changeCase.lowerFirst`: false by default
+* `changeCase.upperFirst`: false by default
+* `changeCase.param`: false by default
+* `changeCase.sentence`: false by default
+* `changeCase.swap`: false by default
+
+* `changeCase.title`: true by default
+* `changeCase.constant`: true by default

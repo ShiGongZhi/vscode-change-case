@@ -1,5 +1,7 @@
 {
-  "name": "change-case",
+  "name": "change-case-for-vscode",
+  "version": "1.0.2",
+  "displayName": "Change Case For VSCode",
   "description": "Quickly change the case (camelCase, CONSTANT_CASE, snake_case, etc) of the current selection or current word",
   "icon": "images/change-case-icon.png",
   "galleryBanner": {
@@ -8,19 +10,44 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wmaurer/vscode-change-case.git"
+    "url": "https://github.com/ShiGongZhi/vscode-change-case.git"
   },
   "bugs": {
-    "url": "https://github.com/wmaurer/vscode-change-case/issues"
+    "url": "https://github.com/ShiGongZhi/vscode-change-case/issues"
   },
   "license": "MIT",
-  "version": "1.0.0",
-  "publisher": "wmaurer",
+  "publisher": "SoulFriends",
   "engines": {
     "vscode": "^1.6.0"
   },
   "categories": [
+    "Programming Languages",
     "Other"
+  ],
+  "keywords": [
+    "change",
+    "case",
+    "camel",
+    "constant",
+    "dot",
+    "kebab",
+    "lower",
+    "lowerFirst",
+    "no",
+    "param",
+    "pascal",
+    "path",
+    "sentence",
+    "snake",
+    "swap",
+    "title",
+    "upper",
+    "upperFirst",
+    "convert",
+    "selection",
+    "word",
+    "text",
+    "editor"
   ],
   "activationEvents": [
     "onCommand:extension.changeCase.commands",
@@ -43,6 +70,19 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.changeCase.commands",
+        "key": "alt+t",
+        "mac": "alt+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.changeCase.camel",
+        "key": "shift+alt+t",
+        "mac": "shift+alt+t"
+      }
+    ],
     "commands": [
       {
         "command": "extension.changeCase.commands",
@@ -112,16 +152,94 @@
         "command": "extension.changeCase.upperFirst",
         "title": "Change Case upperFirst"
       }
-    ]
-  },
-  "configuration": {
-    "type": "object",
-    "title": "changeCase configuration",
-    "properties": {
-      "changeCase.includeDotInCurrentWord": {
-        "type": "boolean",
-        "default": "false",
-        "description": "When selecting current word, allow dots in current word (false by default)"
+    ],
+    "configuration": {
+      "properties": {
+        "changeCase.includeDotInCurrentWord": {
+          "type": "boolean",
+          "default": false,
+          "description": "When selecting current word, allow dots in current word (false by default)"
+        },
+        "changeCase.camel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a string with the separators denoted by having the next letter capitalised"
+        },
+        "changeCase.pascal": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a string denoted in the same fashion as camelCase, but with the first letter also capitalised"
+        },
+        "changeCase.kebab": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a lower case, dash separated string (alias for param case)"
+        },
+        "changeCase.snake": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a lower case, underscore separated string"
+        },
+        "changeCase.lower": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a string in lower case"
+        },
+        "changeCase.upper": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a string in upper case"
+        },
+        "changeCase.no": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert the string without any casing (lower case, space separated)"
+        },
+        "changeCase.path": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a lower case, slash separated string"
+        },
+        "changeCase.dot": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a lower case, period separated string"
+        },
+        "changeCase.lowerFirst": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a string with the first character lower cased"
+        },
+        "changeCase.upperFirst": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a string with the first character upper cased"
+        },
+        "changeCase.param": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a lower case, dash separated string"
+        },
+        "changeCase.sentence": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a lower case, space separated string"
+        },
+        "changeCase.swap": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert to a string with every character case reversed"
+        },
+        "changeCase.title": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to a space separated string with the first character of every word upper cased"
+        },
+        "changeCase.constant": {
+          "type": "boolean",
+          "default": true,
+          "description": "Convert to an upper case, underscore separated string"
+        }
       }
     }
   },
@@ -132,9 +250,9 @@
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
-    "@types/node": "^6.0.46",
+    "@types/node": "^20.19.22",
     "mocha": "^2.3.3",
-    "typescript": "^2.0.6",
+    "typescript": "^5.9.3",
     "vscode": "^1.0.3"
   },
   "dependencies": {
